@@ -8,6 +8,7 @@ const Index = () => {
   const [showResults, setShowResults] = useState(false);
 
   const handleComparisonSubmit = (data: any) => {
+    console.log("Données du formulaire:", data);
     setShowResults(true);
   };
 
@@ -20,8 +21,9 @@ const Index = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Comparez les meilleures assurances habitation
           </h1>
-          <p className="text-xl text-gray-600">
-            Trouvez l'assurance parfaite pour votre bien immobilier en quelques clics
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Trouvez l'assurance parfaite pour votre bien immobilier en quelques clics.
+            Économisez jusqu'à 40% sur votre contrat.
           </p>
         </div>
 
@@ -30,13 +32,21 @@ const Index = () => {
         </div>
 
         {showResults && (
-          <div className="animate-fade-up">
+          <div className="mb-16">
             <ResultsDisplay />
           </div>
         )}
 
         <WhyChooseUs />
       </main>
+
+      <footer className="bg-white border-t mt-20">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center text-gray-600 text-sm">
+            © 2024 AssurCompare. Tous droits réservés.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
