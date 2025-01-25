@@ -7,6 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 const mockInsurers = [
   {
@@ -21,7 +22,12 @@ const mockInsurers = [
     ],
     rating: 4.5,
     advantages: ["Meilleur rapport qualité/prix", "Souscription 100% en ligne"],
-    franchise: "150€"
+    franchise: "150€",
+    details: {
+      maxCoverage: "150 000€",
+      contractDuration: "1 an",
+      cancellationPeriod: "30 jours"
+    }
   },
   {
     name: "SecurHabitat",
@@ -36,7 +42,12 @@ const mockInsurers = [
     ],
     rating: 4.8,
     advantages: ["Garanties étendues", "Service client premium"],
-    franchise: "100€"
+    franchise: "100€",
+    details: {
+      maxCoverage: "200 000€",
+      contractDuration: "1 an",
+      cancellationPeriod: "60 jours"
+    }
   },
   {
     name: "HabitatPlus",
@@ -51,13 +62,26 @@ const mockInsurers = [
     ],
     rating: 4.2,
     advantages: ["Couverture premium", "Indemnisation express"],
-    franchise: "200€"
+    franchise: "200€",
+    details: {
+      maxCoverage: "300 000€",
+      contractDuration: "1 an",
+      cancellationPeriod: "45 jours"
+    }
   },
 ];
 
 export const ResultsDisplay = () => {
+  const handleSubscribe = (insurerName: string) => {
+    toast.success(`Redirection vers le site de ${insurerName} pour la souscription...`);
+  };
+
+  const handleMoreInfo = (insurerName: string) => {
+    toast.info(`Affichage des informations détaillées pour ${insurerName}...`);
+  };
+
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-up">
       <h2 className="text-2xl font-semibold text-center mb-8">
         Meilleures offres pour votre bien
       </h2>
@@ -79,14 +103,30 @@ export const ResultsDisplay = () => {
               <span className="text-3xl font-bold text-primary">{insurer.price}€</span>
               <span className="text-gray-500">/mois</span>
               <div className="mt-1 flex items-center">
-                <Info className="h-4 w-4 text-gray-400 mr-1" />
-                <span className="text-sm text-gray-500">Franchise : {insurer.franchise}</span>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <div className="flex items-center">
+                        <Info className="h-4 w-4 text-gray-400 mr-1" />
+                        <span className="text-sm text-gray-500">Franchise : {insurer.franchise}</span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div className="space-y-1">
+                        <p>Couverture max : {insurer.details.maxCoverage}</p>
+                        <p>Durée du contrat : {insurer.details.contractDuration}</p>
+                        <p>Délai de résiliation : {insurer.details.cancellationPeriod}</p>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
 
             <div className="mb-4">
               {insurer.advantages.map((advantage, index) => (
-                <div key={index} className="text-sm text-primary-600 mb-1">
+                <div key={index} className="text-sm text-primary-600 mb-1 flex items-center">
+                  <Check className="h-4 w-4 text-green-500 mr-1" />
                   {advantage}
                 </div>
               ))}
@@ -102,8 +142,17 @@ export const ResultsDisplay = () => {
             </ul>
 
             <div className="space-y-3">
-              <Button className="w-full">Souscrire en ligne</Button>
-              <Button variant="outline" className="w-full">
+              <Button 
+                className="w-full"
+                onClick={() => handleSubscribe(insurer.name)}
+              >
+                Souscrire en ligne
+              </Button>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => handleMoreInfo(insurer.name)}
+              >
                 Plus d'informations
               </Button>
             </div>

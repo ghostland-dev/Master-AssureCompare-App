@@ -6,9 +6,16 @@ import { WhyChooseUs } from "@/components/WhyChooseUs";
 
 const Index = () => {
   const [showResults, setShowResults] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleComparisonSubmit = (data: any) => {
+  const handleComparisonSubmit = async (data: any) => {
+    setIsLoading(true);
     console.log("Données du formulaire:", data);
+    
+    // Simuler un appel API
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsLoading(false);
     setShowResults(true);
   };
 
@@ -17,7 +24,7 @@ const Index = () => {
       <Header />
       
       <main className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fade-up">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Comparez les meilleures assurances habitation
           </h1>
