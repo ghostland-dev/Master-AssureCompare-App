@@ -19,6 +19,11 @@ export default {
     },
     extend: {
       colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "#1E40AF",
           foreground: "#FFFFFF",
@@ -39,6 +44,9 @@ export default {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+      },
+      borderColor: {
+        DEFAULT: "hsl(var(--border))",
       },
     },
   },
